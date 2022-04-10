@@ -8,7 +8,7 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
 {
     public enum TileType { Empty, Dirt, Grass, Asphalt }
 
-    [SerializeField] private GridLayout gridLayout;
+    [SerializeField] public GridLayout gridLayout;
     [SerializeField] private Tilemap mainTileMap;
     [SerializeField] private Tilemap tempTileMap;
 
@@ -51,6 +51,18 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
                 }
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (temp.CanBePlaced())
+            {
+                temp.Place();
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ClearArea();
+            Destroy(temp.gameObject);
+        }
     }
     #endregion
 
@@ -88,9 +100,9 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
     #endregion
 
     #region BuildingHandler
-    public void InitiazlieWithBuilding(GameObject building) 
+    public void InitiazlieWithBuilding(GameObject building)
     {
-        temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>(); 
+        temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
         RelocateBuilding();
     }
 
@@ -101,6 +113,11 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
         tempTileMap.SetTilesBlock(prevArea, willbeClear);
     }
 
+    /*
+     * Dirt => Can Place
+     * Grass => Can Place
+     * Asphalt => Cannot Place
+     */
     private void RelocateBuilding()
     {
         ClearArea();
@@ -114,11 +131,11 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
         {
             if (baseArray[i] == tileBases[TileType.Dirt])
             {
-                tileArray[i] = tileBases[TileType.Asphalt];
+                tileArray[i] = tileBases[TileType.Grass];
             }
             else
             {
-                FillTiles(tileArray, TileType.Grass);
+                FillTiles(tileArray, TileType.Asphalt);
                 break;
             }
         }
@@ -126,5 +143,24 @@ public class GridBuildingManager : MonoSingleton<GridBuildingManager>
         prevArea = buildingArea;
     }
 
+    public bool CanTakeArea(BoundsInt area)
+    {
+        TileBase[] baseArray = GetTilesBlock(area, mainTileMap);
+        foreach (var item in baseArray)
+        {
+            if (item != tileBases[TileType.Dirt])
+            {
+                Debug.Log("Cannot place here!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void TakeArea(BoundsInt area)
+    {
+        SetTiles(area, TileType.Empty, tempTileMap);
+        SetTiles(area, TileType.Asphalt, mainTileMap);
+    }
     #endregion
 }
