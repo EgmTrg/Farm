@@ -93,7 +93,6 @@ namespace Farm.Grid
         public void InitiazlieWithBuilding(GameObject building)
         {
             temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
-            Debug.Log("init!");
             RelocateBuilding();
         }
 
@@ -136,7 +135,7 @@ namespace Farm.Grid
 
         public bool CanTakeArea(BoundsInt area)
         {
-            TileBase[] baseArray = GetTilesBlock(area, mainTileMap);
+            TileBase[] baseArray = GetTilesBlock(area, mainTileMap);    
             foreach (var item in baseArray)
             {
                 if (item != tileBases[TileType.Grass])

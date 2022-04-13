@@ -22,6 +22,7 @@ namespace Farm.Buildings
             ButtonHandle();
         }
 
+        #region Building
         private void Place()
         {
             Vector3Int position = GridBuildingManager.Instance.gridLayout.LocalToCell(transform.position);
@@ -41,8 +42,9 @@ namespace Farm.Buildings
                 return true;
             return false;
         }
-        #region Buttons
+        #endregion
 
+        #region Buttons
         private void ButtonHandle()
         {
             Vector3 approvePos = GFX.position + new Vector3(ButtonUIPositionX, ButtonUIPositionY, 0f);
@@ -56,7 +58,6 @@ namespace Farm.Buildings
         {
             if (CanBePlaced())
             {
-                Debug.Log("Approved!");
                 UICanvas.enabled = false;
                 Place();
             }
@@ -64,11 +65,9 @@ namespace Farm.Buildings
 
         public void RejectButtonEvent()
         {
-            Debug.Log("Rejected!");
             Destroy(gameObject);
             GridBuildingManager.Instance.ClearArea();
         }
-
         #endregion
     }
 }
