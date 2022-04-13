@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Farm.Grid
 {
-
     public class GridBuildingManager : MonoSingleton<GridBuildingManager>
     {
         public enum TileType { Empty, Dirt, Grass, Asphalt }
@@ -54,22 +53,6 @@ namespace Farm.Grid
                     }
                 }
             }
-            /*else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (temp.CanBePlaced())
-                {
-                    UICanvas.enabled = true;
-                    temp.ApproveButtonEvent();
-                    temp.Place();
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                UICanvas.enabled = true;
-                temp.RejectButtonEvent();
-                ClearArea();
-                //Destroy(temp.gameObject);
-            }*/
         }
         #endregion
 
@@ -124,7 +107,7 @@ namespace Farm.Grid
         /*
          * Dirt => Farm -> Cannot Placeable
          * Grass => Can Placeable
-         * Asphalt => Cannot Place
+         * Asphalt => Cannot Placeable
          */
         private void RelocateBuilding()
         {
