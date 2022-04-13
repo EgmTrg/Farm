@@ -1,31 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Farm.Grid;
+using UnityEngine.UI;
 
-public class Building : MonoBehaviour
+namespace Farm.Buildings
 {
-    public bool isPlaced { get; private set; }
-    public BoundsInt area;
-
-    public bool CanBePlaced()
+    public class Building : MonoBehaviour
     {
-        Vector3Int position = GridBuildingManager.Instance.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
-        areaTemp.position = position;
+        public bool isPlaced { get; private set; }
+        public BoundsInt area;
 
-        if (GridBuildingManager.Instance.CanTakeArea(areaTemp))
+        private const float ButtonUIPositionX = -0.5f;
+        private const float ButtonUIPositionY = 0f;
+
+        [SerializeField] private Transform GFX;
+        [SerializeField] private Canvas UICanvas;
+        [SerializeField] private Button approveButton;
+        [SerializeField] private Button rejectButton;
+
+        private void Update()
         {
-            return true;
+            ButtonHandle();
         }
-        return false;
-    }
 
-    public void Place()
-    {
-        Vector3Int position = GridBuildingManager.Instance.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
-        areaTemp.position = position;
-        isPlaced = true;
-        GridBuildingManager.Instance.TakeArea(areaTemp);
+        private void Place()
+        {
+            Vector3Int position = GridBuildingManager.Instance.gridLayout.LocalToCell(transform.position);
+            BoundsInt areaTemp = area;
+            areaTemp.position = position;
+            isPlaced = true;
+            GridBuildingManager.Instance.TakeArea(areaTemp);
+        }
+
+        private bool CanBePlaced()
+        {
+            Vector3Int position = GridBuildingManager.Instance.gridLayout.LocalToCell(transform.position);
+            BoundsInt areaTemp = area;
+            areaTemp.position = position;
+
+            if (GridBuildingManager.Instance.CanTakeArea(areaTemp))
+                return true;
+            return false;
+        }
+        #region Buttons
+
+        private void ButtonHandle()
+        {
+            Vector3 approvePos = GFX.position + new Vector3(ButtonUIPositionX, ButtonUIPositionY, 0f);
+            Vector3 rejectPos = GFX.position - new Vector3(ButtonUIPositionX, -ButtonUIPositionY, 0f);
+
+            approveButton.transform.position = Camera.main.WorldToScreenPoint(approvePos);
+            rejectButton.transform.position = Camera.main.WorldToScreenPoint(rejectPos);
+        }
+
+        public void ApproveButtonEvent()
+        {
+            if (CanBePlaced())
+            {
+                Debug.Log("Approved!");
+                UICanvas.enabled = false;
+                Place();
+            }
+        }
+
+        public void RejectButtonEvent()
+        {
+            Debug.Log("Rejected!");
+            Destroy(gameObject);
+            GridBuildingManager.Instance.ClearArea();
+        }
+
+        #endregion
     }
 }

@@ -50,3 +50,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9212ad8e619be29459d4b3fbf357fd2a, type: 2}
   - {fileID: 11400000, guid: b35e32d761795af41bbb592b88537f3c, type: 2}
   - {fileID: 11400000, guid: 404989f58269b8d4b8ec457225789b87, type: 2}
+  initBuildingButton: {fileID: 0}
