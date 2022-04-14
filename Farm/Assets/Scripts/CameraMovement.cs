@@ -4,17 +4,10 @@ namespace Farm.CameraSystem
 {
     public class CameraMovement : MonoBehaviour
     {
-        [SerializeField] private Vector3 CurrentCameraOffset;
+        private Vector3 _origin;
+        private Vector3 _targetPoint;
 
-        [SerializeField] private Vector3 _origin;
-        [SerializeField] private Vector3 _targetPoint;
-
-        [SerializeField] private bool _drag = false;
-
-        private void Awake()
-        {
-            CurrentCameraOffset = Camera.main.transform.position;
-        }
+        private bool _drag = false;
 
         private void LateUpdate()
         {
