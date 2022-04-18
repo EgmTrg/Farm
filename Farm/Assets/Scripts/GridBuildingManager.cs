@@ -90,7 +90,7 @@ namespace Farm.Grid
         #endregion
 
         #region BuildingHandler
-        public void InitiazlieWithBuilding(GameObject building)
+        public void InitializeWithBuilding(GameObject building)
         {
             temp = Instantiate(building, Vector3.zero, Quaternion.identity).GetComponent<Building>();
             RelocateBuilding();
