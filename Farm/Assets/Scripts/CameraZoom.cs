@@ -12,7 +12,6 @@ namespace Farm.CameraSystem
         private void Start()
         {
             zoom = Camera.main.orthographicSize;
-            Debug.Log(zoom);
         }
 
         private void LateUpdate()
