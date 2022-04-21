@@ -3,12 +3,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using Farm.Buildings;
 using UnityEngine;
+using System;
 
 namespace Farm.Grid
 {
     public class GridBuildingManager : MonoSingleton<GridBuildingManager>
     {
-        public enum TileType { Empty, Dirt, Grass, Asphalt }
+        public enum TileType { Empty, Dirt, Grass, Asphalt, Approve, Reject }
 
         [SerializeField] public GridLayout gridLayout;
         [SerializeField] private Tilemap mainTileMap;
@@ -24,35 +25,27 @@ namespace Farm.Grid
         #region UnityMethods
         private void Start()
         {
-            tileBases.Add(TileType.Empty, null);
+            #region Comment
+            /*tileBases.Add(TileType.Empty, null);
             tileBases.Add(TileType.Dirt, tiles[0]);
             tileBases.Add(TileType.Grass, tiles[1]);
             tileBases.Add(TileType.Asphalt, tiles[2]);
+            tileBases.Add(TileType.Approve, tiles[3]);
+            tileBases.Add(TileType.Reject, tiles[4]);*/
+            #endregion
+            int i = 0;
+            foreach (TileType item in Enum.GetValues(typeof(TileType)))
+            {
+                tileBases.Add(item, tiles[i]);
+                // Debug.Log($"TileType: {item} TileBase: {tiles[i]}");
+                if (tiles.Length <= i)
+                    i++;
+            }
         }
 
         private void Update()
         {
-            if (temp == null)
-                return;
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                if (EventSystem.current.IsPointerOverGameObject(0))
-                    return;
-
-                if (!temp.isPlaced)
-                {
-                    Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
-
-                    if (prevPos != cellPos)
-                    {
-                        temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
-                        prevPos = cellPos;
-                        RelocateBuilding();
-                    }
-                }
-            }
+            FirstLocatingOfBuilding();
         }
         #endregion
 
@@ -103,6 +96,33 @@ namespace Farm.Grid
             tempTileMap.SetTilesBlock(prevArea, willbeClear);
         }
 
+        private void FirstLocatingOfBuilding()
+        {
+            // Checking: is player want to build anything?
+            if (temp == null)
+                return;
+
+            // Changes location of the building.
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (EventSystem.current.IsPointerOverGameObject(0))
+                    return;
+
+                if (!temp.isPlaced)
+                {
+                    Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+
+                    if (prevPos != cellPos)
+                    {
+                        temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
+                        prevPos = cellPos;
+                        RelocateBuilding();
+                    }
+                }
+            }
+        }
+
         /*
          * Dirt => Farm -> Cannot Placeable
          * Grass => Can Placeable
@@ -135,7 +155,7 @@ namespace Farm.Grid
 
         public bool CanTakeArea(BoundsInt area)
         {
-            TileBase[] baseArray = GetTilesBlock(area, mainTileMap);    
+            TileBase[] baseArray = GetTilesBlock(area, mainTileMap);
             foreach (var item in baseArray)
             {
                 if (item != tileBases[TileType.Grass])
