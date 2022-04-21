@@ -25,19 +25,11 @@ namespace Farm.Grid
         #region UnityMethods
         private void Start()
         {
-            #region Comment
-            /*tileBases.Add(TileType.Empty, null);
-            tileBases.Add(TileType.Dirt, tiles[0]);
-            tileBases.Add(TileType.Grass, tiles[1]);
-            tileBases.Add(TileType.Asphalt, tiles[2]);
-            tileBases.Add(TileType.Approve, tiles[3]);
-            tileBases.Add(TileType.Reject, tiles[4]);*/
-            #endregion
+            // Adding automatically all tiles in `tiles` array to tileBases dict.
             int i = 0;
             foreach (TileType item in Enum.GetValues(typeof(TileType)))
             {
                 tileBases.Add(item, tiles[i]);
-                // Debug.Log($"TileType: {item} TileBase: {tiles[i]}");
                 if (tiles.Length <= i)
                     i++;
             }
@@ -52,6 +44,12 @@ namespace Farm.Grid
         #region TileHandler
         private int GetAreaSize(BoundsInt area) => area.size.x * area.size.y * area.size.z;
 
+        /// <summary>
+        /// Usually using, wants to FirstLocating or Relocating the building.
+        /// </summary>
+        /// <param name="area">Building of area</param>
+        /// <param name="tilemap">Which tilemap you want to work on</param>
+        /// <returns></returns>
         private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
         {
             TileBase[] tiles = new TileBase[GetAreaSize(area)];
