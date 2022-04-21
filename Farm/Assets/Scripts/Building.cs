@@ -9,9 +9,9 @@ namespace Farm.Buildings
         public bool isPlaced { get; private set; }
         public BoundsInt area;
 
-        private const float ButtonUIPositionX = -0.5f;
-        private const float ButtonUIPositionY = 0f;
-
+        [SerializeField] private float ButtonUIPositionX = -0.5f;
+        [SerializeField] private float ButtonUIPositionY = 0f;
+        [Space(20)]
         [SerializeField] private Transform GFX;
         [SerializeField] private Canvas UICanvas;
         [SerializeField] private Button approveButton;
