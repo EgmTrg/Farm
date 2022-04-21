@@ -47,8 +47,10 @@ MonoBehaviour:
   mainTileMap: {fileID: 0}
   tempTileMap: {fileID: 0}
   tiles:
+  - {fileID: 0}
   - {fileID: 11400000, guid: 9212ad8e619be29459d4b3fbf357fd2a, type: 2}
   - {fileID: 11400000, guid: b35e32d761795af41bbb592b88537f3c, type: 2}
   - {fileID: 11400000, guid: 404989f58269b8d4b8ec457225789b87, type: 2}
+  - {fileID: 11400000, guid: 8597c7dd8ffe901489c5f5deef986166, type: 2}
   - {fileID: 11400000, guid: e90a8255247dfec409dd09a019e70601, type: 2}
   - {fileID: 11400000, guid: 5ad8d68abdd3f2448a1d5755c96dc934, type: 2}

@@ -1614,10 +1614,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8706411914371792970, guid: b22a62c285ed355479cbd98bf0344dad, type: 3}
-      propertyPath: UICanvas
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8706411914371792970, guid: b22a62c285ed355479cbd98bf0344dad, type: 3}
       propertyPath: gridLayout
       value: 
       objectReference: {fileID: 724250378}
@@ -1629,10 +1625,6 @@ PrefabInstance:
       propertyPath: tempTileMap
       value: 
       objectReference: {fileID: 1410871723}
-    - target: {fileID: 8706411914371792970, guid: b22a62c285ed355479cbd98bf0344dad, type: 3}
-      propertyPath: initBuildingButton
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8706411914371792971, guid: b22a62c285ed355479cbd98bf0344dad, type: 3}
       propertyPath: m_RootOrder
       value: 0

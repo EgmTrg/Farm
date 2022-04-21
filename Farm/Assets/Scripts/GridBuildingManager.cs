@@ -9,7 +9,7 @@ namespace Farm.Grid
 {
     public class GridBuildingManager : MonoSingleton<GridBuildingManager>
     {
-        public enum TileType { Empty, Dirt, Grass, Asphalt, Approve, Reject }
+        public enum TileType { Empty, Dirt, Grass, Asphalt, OnBuilding, Green, Red }
 
         [SerializeField] public GridLayout gridLayout;
         [SerializeField] private Tilemap mainTileMap;
@@ -27,10 +27,13 @@ namespace Farm.Grid
         {
             // Adding automatically all tiles in `tiles` array to tileBases dict.
             int i = 0;
+            // tileBases.Add(TileType.Empty, null);
+            // Debug.Log($"TileType: TileType.Empty Tilebase: null");
             foreach (TileType item in Enum.GetValues(typeof(TileType)))
             {
                 tileBases.Add(item, tiles[i]);
-                if (tiles.Length <= i)
+                Debug.Log($"TileType: {item} Tilebase: {tiles[i]}");
+                if (tiles.Length >= i)
                     i++;
             }
         }
@@ -121,11 +124,6 @@ namespace Farm.Grid
             }
         }
 
-        /*
-         * Dirt => Farm -> Cannot Placeable
-         * Grass => Can Placeable
-         * Asphalt => Cannot Placeable
-         */
         private void RelocateBuilding()
         {
             ClearArea();
@@ -139,11 +137,11 @@ namespace Farm.Grid
             {
                 if (baseArray[i] == tileBases[TileType.Grass])
                 {
-                    tileArray[i] = tileBases[TileType.Dirt];
+                    tileArray[i] = tileBases[TileType.Green];
                 }
                 else
                 {
-                    FillTiles(tileArray, TileType.Asphalt);
+                    FillTiles(tileArray, TileType.Red);
                     break;
                 }
             }
@@ -168,7 +166,7 @@ namespace Farm.Grid
         public void TakeArea(BoundsInt area)
         {
             SetTiles(area, TileType.Empty, tempTileMap);
-            SetTiles(area, TileType.Asphalt, mainTileMap);
+            SetTiles(area, TileType.OnBuilding, mainTileMap);
         }
         #endregion
     }
