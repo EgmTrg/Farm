@@ -5,6 +5,11 @@ namespace Farm.UI
 {
     public class UILoader : MonoSingleton<UILoader>
     {
+        private void Start()
+        {
+            Debug.Log("Press F1 for shop menu! -UILoader");
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.F1))

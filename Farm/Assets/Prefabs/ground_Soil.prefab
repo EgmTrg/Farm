@@ -765,9 +765,8 @@ MonoBehaviour:
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
-  ButtonUIPositionX: -0.5
-  ButtonUIPositionY: -0.5
   GFX: {fileID: 6599753780774622446}
   UICanvas: {fileID: 5644155347648652165}
   approveButton: {fileID: 5572476309110354869}
   rejectButton: {fileID: 4918830994428544108}
+  shopItem: {fileID: 11400000, guid: 04320ffe7179efa40bae9a063ba2332d, type: 2}

@@ -16,3 +16,10 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 0dd5d6a0c728fb842a43ba4db85bd3cd, type: 3}
   name: Soil
   price: 20
+  uiSettings:
+    buildingSize: 1
+    positionX: -0.3
+    positionY: -0.5
+    width: 25
+    height: 25
+    fontSize: 15

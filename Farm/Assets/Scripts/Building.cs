@@ -1,6 +1,8 @@
+using UnityEngine.UI;
+using Farm.UI.Shop;
 using UnityEngine;
 using Farm.Grid;
-using UnityEngine.UI;
+using TMPro;
 
 namespace Farm.Buildings
 {
@@ -9,18 +11,26 @@ namespace Farm.Buildings
         public bool isPlaced { get; private set; }
         public BoundsInt area;
 
-        [SerializeField] private float ButtonUIPositionX = -0.5f;
-        [SerializeField] private float ButtonUIPositionY = 0f;
         [Space(20)]
         [SerializeField] private Transform GFX;
         [SerializeField] private Canvas UICanvas;
         [SerializeField] private Button approveButton;
         [SerializeField] private Button rejectButton;
+        [SerializeField] private ShopItem shopItem;
+        private ShopItem.UISettings settings;
+
+        #region Unity Methods
+        private void Start()
+        {
+            settings = shopItem.InitSettings();
+            ApplieButtonSettings();
+        }
 
         private void Update()
         {
             ButtonHandle();
         }
+        #endregion
 
         #region Building
         private void Place()
@@ -47,11 +57,28 @@ namespace Farm.Buildings
         #region Buttons
         private void ButtonHandle()
         {
-            Vector3 approvePos = GFX.position + new Vector3(ButtonUIPositionX, ButtonUIPositionY, 0f);
-            Vector3 rejectPos = GFX.position - new Vector3(ButtonUIPositionX, -ButtonUIPositionY, 0f);
+            Vector3 approvePos = GFX.position + new Vector3(settings.positionX, settings.positionY, 0f);
+            Vector3 rejectPos = GFX.position - new Vector3(settings.positionX, -settings.positionY, 0f);
 
             approveButton.transform.position = Camera.main.WorldToScreenPoint(approvePos);
             rejectButton.transform.position = Camera.main.WorldToScreenPoint(rejectPos);
+        }
+
+        private void ApplieButtonSettings()
+        {
+            Vector2 buttonSizes = new Vector2(settings.width, settings.height);
+            Vector2 buttonPositions = new Vector2(settings.positionX, settings.positionY);
+
+            approveButton.GetComponentInChildren<TextMeshProUGUI>().fontSize = settings.fontSize;
+            rejectButton.GetComponentInChildren<TextMeshProUGUI>().fontSize = settings.fontSize;
+
+            RectTransform approveButtonRect = approveButton.GetComponent<RectTransform>();
+            approveButtonRect.sizeDelta = buttonSizes;
+            approveButtonRect.position = buttonPositions;
+            
+            RectTransform rejectButtonRect = rejectButton.GetComponent<RectTransform>();
+            rejectButtonRect.sizeDelta = buttonSizes;
+            rejectButtonRect.position= buttonPositions;
         }
 
         public void ApproveButtonEvent()

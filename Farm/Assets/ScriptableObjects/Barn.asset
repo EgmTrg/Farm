@@ -16,3 +16,10 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2161c13541f187f4d9a3771820b81d53, type: 3}
   name: Barn
   price: 100
+  uiSettings:
+    buildingSize: 2
+    positionX: -0.5
+    positionY: -0.2
+    width: 30
+    height: 30
+    fontSize: 20

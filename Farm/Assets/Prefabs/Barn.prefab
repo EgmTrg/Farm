@@ -268,6 +268,7 @@ MonoBehaviour:
   UICanvas: {fileID: 5374994472639637903}
   approveButton: {fileID: 6654040648158751272}
   rejectButton: {fileID: 5082271520132161558}
+  shopItem: {fileID: 11400000, guid: 03c7a77d5e1344c44900339400eb537c, type: 2}
 --- !u!1 &4071873949527327218
 GameObject:
   m_ObjectHideFlags: 0

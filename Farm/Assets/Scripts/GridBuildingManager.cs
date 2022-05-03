@@ -27,12 +27,10 @@ namespace Farm.Grid
         {
             // Adding automatically all tiles in `tiles` array to tileBases dict.
             int i = 0;
-            // tileBases.Add(TileType.Empty, null);
-            // Debug.Log($"TileType: TileType.Empty Tilebase: null");
             foreach (TileType item in Enum.GetValues(typeof(TileType)))
             {
+                //Debug.Log($"TileType: {item} Tilebase: {tiles[i]}");
                 tileBases.Add(item, tiles[i]);
-                Debug.Log($"TileType: {item} Tilebase: {tiles[i]}");
                 if (tiles.Length >= i)
                     i++;
             }
